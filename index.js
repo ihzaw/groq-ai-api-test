@@ -38,6 +38,7 @@ app.get("/shortcut-wa/:target", async (req, res) => {
   if (response?.choices[0]?.message?.content) {
     const rawMessage = response.choices[0].message.content;
     res.json(rawMessage);
+    return
   }
 
   res.json({ text: "Failed to create message, don't taru kira" });
