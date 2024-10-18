@@ -1,7 +1,7 @@
 const express = require("express");
 const Groq = require("groq-sdk");
 
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 
 require("dotenv").config();
@@ -38,19 +38,6 @@ app.get("/shortcut-wa/:target", async (req, res) => {
   if (response?.choices[0]?.message?.content) {
     const rawMessage = response.choices[0].message.content;
     res.json({ text: rawMessage });
-    return
-  }
-
-  res.json({ text: "Failed to create message, don't taru kira" });
-});
-
-app.get("/shortcut-wa/:target", async (req, res) => {
-  const { target } = req.params
-  const response = await getGroqChatCompletion(target);
-
-  if (response?.choices[0]?.message?.content) {
-    const rawMessage = response.choices[0].message.content;
-    res.json({ text: rawMessage });
   }
 
   res.json({ text: "Failed to create message, don't taru kira" });
@@ -60,6 +47,6 @@ app.get("/", async (req, res) => {
   res.json({ message: "API working" });
 });
 
-app.listen(PORT, () => {
-  console.log(`server running on port ${PORT}`);
+app.listen(port, () => {
+  console.log(`server running on port ${port}`);
 });
